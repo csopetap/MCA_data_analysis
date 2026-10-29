@@ -141,6 +141,42 @@ Set `include_debug_columns=True` to also include the recommended ROI,
 centroid, total counts, statistical/systematic area errors, matched isotope
 and decay chain, and `fail_reason`.
 
+## Recommended fitting settings
+
+The following settings are recommended starting points for the two detector
+types. They are passed as keyword arguments to `analyze_folder()` and can be
+adjusted for a particular spectrum.
+
+### HPGe detectors
+
+```python
+results = analyze_folder(
+    input_folder="data/mca",
+    output_folder="results",
+    second_der_signif_toler=2,
+    first_der_signif_toler=1,
+    search_max_low=20,
+    search_max_high=20,
+    wROI_window=5,
+    shift_ratio=0.3,
+)
+```
+
+### NaI detectors
+
+```python
+results = analyze_folder(
+    input_folder="data/mca",
+    output_folder="results",
+    second_der_signif_toler=2.5,
+    first_der_signif_toler=1.5,
+    search_max_low=80,
+    search_max_high=80,
+    wROI_window=15,
+    shift_ratio=0.3,
+)
+```
+
 ## Main API
 
 ```python
