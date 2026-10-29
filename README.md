@@ -141,6 +141,42 @@ Set `include_debug_columns=True` to also include the recommended ROI,
 centroid, total counts, statistical/systematic area errors, matched isotope
 and decay chain, and `fail_reason`.
 
+## Recommended fitting settings
+
+The following settings are recommended starting points for the two detector
+types. They are passed as keyword arguments to `analyze_folder()` and can be
+adjusted for a particular spectrum.
+
+### HPGe detectors
+
+```python
+results = analyze_folder(
+    input_folder="data/mca",
+    output_folder="results",
+    second_der_signif_toler=2,
+    first_der_signif_toler=1,
+    search_max_low=20,
+    search_max_high=20,
+    wROI_window=5,
+    shift_ratio=0.3,
+)
+```
+
+### NaI detectors
+
+```python
+results = analyze_folder(
+    input_folder="data/mca",
+    output_folder="results",
+    second_der_signif_toler=2.5,
+    first_der_signif_toler=1.5,
+    search_max_low=80,
+    search_max_high=80,
+    wROI_window=15,
+    shift_ratio=0.3,
+)
+```
+
 ## Main API
 
 ```python
@@ -181,7 +217,7 @@ Important behavior:
 - `decay_chains` accepts one chain name, a list of names, or `None` for the
   full database. Unknown chain names raise `ValueError`.
 
-## Programmatic results
+## Using results directly in Python
 
 The function returns a dictionary mapping each processed `.mca` filename to
 the same pandas `DataFrame` written to disk:
@@ -191,7 +227,7 @@ results = analyze_folder("data/mca", "results", calibration_parameters=None)
 first_result = results["spectrum_1.mca"]
 
 successful = first_result[first_result["fit_success"]]
-successful.to_excel("successful_peaks.xlsx", index=False)
+successful.to_csv("successful_peaks.csv", index=False)
 ```
 
 ## License
