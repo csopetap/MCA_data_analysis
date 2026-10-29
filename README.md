@@ -181,7 +181,7 @@ Important behavior:
 - `decay_chains` accepts one chain name, a list of names, or `None` for the
   full database. Unknown chain names raise `ValueError`.
 
-## Programmatic results
+## Using results directly in Python
 
 The function returns a dictionary mapping each processed `.mca` filename to
 the same pandas `DataFrame` written to disk:
@@ -191,7 +191,7 @@ results = analyze_folder("data/mca", "results", calibration_parameters=None)
 first_result = results["spectrum_1.mca"]
 
 successful = first_result[first_result["fit_success"]]
-successful.to_excel("successful_peaks.xlsx", index=False)
+successful.to_csv("successful_peaks.csv", index=False)
 ```
 
 ## License
